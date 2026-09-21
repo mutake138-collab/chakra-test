@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>七脉轮自我觉察测试</title>
+<style>
+:root{
+  --bg:#f7f7fb;--card:#fff;--text:#1f2330;--muted:#6b7280;--line:#e7e8ef;
+  --root:#d84a4a;--sacral:#f28c28;--solar:#e3b21a;--heart:#4caf6f;
+  --throat:#3b82c4;--third:#5b5fc7;--crown:#8b5cc7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(139,92,199,.10),transparent 26%),
+    radial-gradient(circle at 90% 8%,rgba(59,130,196,.10),transparent 24%),
+    linear-gradient(180deg,#faf9ff,#f5f7fb 60%,#f8fafc);
+}
+.wrap{max-width:980px;margin:0 auto;padding:28px 14px 100px}
+.hero{
+  position:relative;overflow:hidden;border:1px solid rgba(90,80,150,.10);border-radius:28px;padding:34px;
+  background:rgba(255,255,255,.92);box-shadow:0 18px 60px rgba(40,32,90,.08)
+}
+.hero:after{
+  content:"";position:absolute;right:-80px;top:-120px;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,199,.16),transparent 68%)
+}
+.eyebrow{display:inline-flex;gap:7px;align-items:center;padding:6px 10px;border-radius:999px;background:#f0ebff;color:#6c4ec3;font-size:12px;font-weight:800;letter-spacing:.06em}
+.dot{width:7px;height:7px;border-radius:50%;background:#8b5cc7;box-shadow:0 0 0 4px rgba(139,92,199,.10)}
+h1{font-size:36px;margin:14px 0 8px;letter-spacing:-.03em}
+.lead{max-width:720px;color:#585d70;font-size:16px;line-height:1.8;margin:0 0 18px}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:7px 10px;border:1px solid #e7e2f6;border-radius:999px;background:#fff;font-size:12px;color:#62677b}
+.start{margin-top:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+button{border:0;border-radius:12px;padding:11px 16px;font-weight:800;cursor:pointer}
+.primary{background:linear-gradient(135deg,#7057d8,#9b7ce9);color:#fff;box-shadow:0 10px 24px rgba(112,87,216,.22)}
+.secondary{background:#f0f2f7;color:#34384d}
+.progressbox{
+  position:sticky;top:8px;z-index:20;margin:14px 0 18px;padding:12px 14px;border:1px solid #e7e4f4;border-radius:16px;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(16px);box-shadow:0 10px 30px rgba(45,40,90,.06)
+}
+.progtop{display:flex;justify-content:space-between;font-size:12px;color:#6f7386;margin-bottom:8px}
+.track{height:8px;border-radius:999px;background:#ebecef;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#d84a4a,#f28c28,#e3b21a,#4caf6f,#3b82c4,#5b5fc7,#8b5cc7);transition:width .3s}
+.section{margin:14px 0;background:rgba(255,255,255,.94);border:1px solid #e8e9ef;border-radius:20px;overflow:hidden;box-shadow:0 8px 28px rgba(30,34,55,.04)}
+.section-head{padding:20px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #eff0f4}
+.section-title{font-size:18px;font-weight:800;display:flex;align-items:center;gap:10px}
+.chakra-dot{width:12px;height:12px;border-radius:50%;box-shadow:0 0 0 5px rgba(0,0,0,.03)}
+.count{font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#f4f2fb;color:#6d5dc9}
+.section-body{padding:0 20px 20px}
+.question{padding:20px 0;border-top:1px solid #eff0f4}
+.question:first-child{border-top:0}
+.qtitle{font-weight:700;margin-bottom:12px;line-height:1.65}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.scale label{border:1px solid #e3e5eb;border-radius:12px;padding:10px 8px;text-align:center;background:#fff;cursor:pointer;font-size:12px;color:#555b70;transition:.15s}
+.scale label:hover{transform:translateY(-1px);border-color:#bbb1ef;background:#faf9ff}
+.scale input{display:none}
+.scale label:has(input:checked){border-color:#8d7be7;background:#f3f0ff;color:#5a48c5;box-shadow:0 0 0 3px rgba(112,87,216,.08);font-weight:800}
+.legend{display:flex;justify-content:space-between;font-size:11px;color:#9aa0ad;margin-top:6px}
+.actions{
+  position:sticky;bottom:8px;z-index:30;display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding:10px;border:1px solid #e5e3ef;border-radius:16px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);box-shadow:0 16px 36px rgba(35,30,75,.12)
+}
+.actionstatus{margin-right:auto;padding:8px;font-size:12px;color:#666b7f}
+.result{display:none;margin-top:18px;border:1px solid #e5e0f3;border-radius:24px;background:linear-gradient(180deg,#fff,#fcfbff);box-shadow:0 18px 55px rgba(41,35,90,.09);padding:22px}
+.result.show{display:block;animation:rise .35s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.result h2{font-size:28px;margin:0 0 6px}
+.result-sub{color:#676c7e;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
+.panel{border:1px solid #e9e9f0;border-radius:16px;background:#fff;padding:16px}
+.panel h3{margin:0 0 12px;font-size:15px}
+.chakra-row{margin:12px 0}
+.rowtop{display:flex;justify-content:space-between;gap:12px;font-size:13px;margin-bottom:6px}
+.energy{height:10px;border-radius:999px;background:#eef0f4;overflow:hidden}
+.energy > div{height:100%;border-radius:999px}
+.status{font-weight:800}
+.status.low{color:#c2413a}.status.balanced{color:#268d55}.status.high{color:#7c4cc8}
+.advice{padding:12px 0;border-top:1px solid #f0f1f4}
+.advice:first-child{border-top:0}
+.advice b{display:block;margin-bottom:4px}
+.small{font-size:12px;color:#73788a;line-height:1.7}
+canvas{width:100%;max-width:420px;height:auto;display:block;margin:0 auto}
+.notice{margin-top:14px;padding:11px 12px;border-radius:12px;background:#faf9fd;border:1px solid #ece9f5;color:#767b8c;font-size:12px;line-height:1.7}
+.raw{display:none;white-space:pre-wrap;background:#151827;color:#eef1f6;border-radius:14px;padding:14px;margin-top:12px;font-size:12px;max-height:300px;overflow:auto}
+
+.metric-stack{display:grid;gap:7px;margin-top:9px}
+.metric-line{display:grid;grid-template-columns:62px 1fr 42px;gap:8px;align-items:center;font-size:11px;color:#727789}
+.metric-track{height:7px;background:#eef0f4;border-radius:999px;overflow:hidden}
+.metric-fill{height:100%;border-radius:999px}
+.open-tag{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;font-size:11px;font-weight:800;background:#f1edff;color:#6c4ec3;margin-left:5px}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px}
+.kpi{border:1px solid #ececf2;border-radius:13px;padding:10px;background:#fbfbfd}
+.kpi b{display:block;font-size:18px;margin-bottom:2px}
+.kpi span{font-size:11px;color:#7b8090}
+.legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:11px;color:#74798a}
+.legend-key{display:flex;align-items:center;gap:5px}
+.legend-swatch{width:10px;height:10px;border-radius:3px}
+
+@media(max-width:760px){
+  .wrap{padding:16px 10px 95px}.hero{padding:24px 19px;border-radius:22px}h1{font-size:29px}
+  .grid{grid-template-columns:1fr}.scale{grid-template-columns:repeat(5,1fr);gap:5px}.scale label{padding:9px 4px}
+  .section-head{padding:17px 15px}.section-body{padding:0 14px 16px}.actions button{flex:1 1 calc(50% - 5px)}.actionstatus{width:100%;padding:2px 6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span> CHAKRA SELF-REFLECTION</span>
+    <h1>七脉轮自我觉察测试</h1>
+    <p class="lead">通过日常安全感、情绪流动、自我驱动力、关系连接、表达、洞察与意义感等情境，观察七个脉轮对应主题目前的相对状态，并区分开放倾向、活跃度与稳定度。结果用于自我觉察，不是医学、心理或客观能量诊断。</p>
+    <div class="meta">
+      <span class="pill">7 个脉轮</span><span class="pill">42 道情境题</span><span class="pill">偏弱 / 平衡 / 偏强</span><span class="pill">开放倾向 / 活跃度 / 稳定度</span><span class="pill">自动生成可视化</span>
+    </div>
+    <div class="start"><button class="primary" onclick="startTest()">开始测试</button><span class="small">按最近 1–2 个月的真实状态作答，不按理想中的自己。</span></div>
+  </section>
+
+  <div class="progressbox">
+    <div class="progtop"><strong id="progressText">已完成 0 / 42</strong><span id="progressPct">0%</span></div>
+    <div class="track"><div class="fill" id="progressFill"></div></div>
+  </div>
+
+  <div id="questions"></div>
+
+  <div class="actions">
+    <div class="actionstatus" id="actionStatus">已完成 0 / 42</div>
+    <button class="primary" onclick="generateResult()">生成结果</button>
+    <button class="secondary" onclick="copyResult()">复制结果</button>
+    <button class="secondary" onclick="toggleRaw()">查看答案</button>
+    <button class="secondary" onclick="clearAll()">清空</button>
+  </div>
+
+  <section class="result" id="result"></section>
+  <pre class="raw" id="raw"></pre>
+</div>
+
+<script>
+const chakras = [
+  {id:'root',name:'海底轮（根轮）',en:'Root',color:'#d84a4a',theme:'安全感、稳定、身体感与现实落地',
+   low:['我常觉得生活缺乏稳定感，容易对金钱、工作或居住状态产生不安。','遇到变化时，我很容易先想到最坏情况。','我有时会忽略睡眠、饮食、运动等基础身体需求。'],
+   high:['为了获得安全感，我会过度控制环境、计划或资源。','当事情脱离我的安排时，我会明显烦躁或失去耐心。','我容易把“稳定”放得过重，即使某些变化其实对我有利。'],
+   lowAdvice:'把注意力放回睡眠、饮食、运动、居住环境和财务边界；先提升可控感，再谈更高层目标。',
+   highAdvice:'练习接受小范围的不确定性，给计划留弹性，避免把“可控”误等同于“安全”。',
+   balAdvice:'目前安全感与现实执行相对稳定，可以继续保持规律作息与可持续的生活节奏。'},
+  {id:'sacral',name:'骶轮',en:'Sacral',color:'#f28c28',theme:'情绪流动、愉悦、创造力与亲密感',
+   low:['我很难真正放松享受当下，常觉得“玩也没什么意思”。','面对自己的情绪或欲望，我容易压下去而不是感受它。','最近我的创造力、好奇心或生活趣味感偏低。'],
+   high:['我容易因为情绪、刺激或新鲜感做出冲动决定。','当生活平淡时，我会强烈想找刺激或快速获得愉悦。','我的情绪有时会明显牵着行动走，事后才复盘。'],
+   lowAdvice:'给生活增加低压力的愉悦和创造活动，允许情绪存在，不必立刻解释或解决。',
+   highAdvice:'把情绪和行动之间留出缓冲区，尤其在消费、关系和冲动决策前增加延迟。',
+   balAdvice:'情绪流动与享受能力较稳定，可以继续保持创造、休息和边界之间的平衡。'},
+  {id:'solar',name:'太阳神经丛',en:'Solar Plexus',color:'#e3b21a',theme:'自我效能、边界、行动力与掌控感',
+   low:['我有时知道该做什么，但迟迟无法启动。','面对强势的人或环境，我容易怀疑自己的判断。','我会因为害怕失败或做错而降低行动速度。'],
+   high:['我容易把效率、结果或胜负看得过重。','我有时会不自觉地替别人决定“什么才是对的”。','为了推进事情，我可能压过自己的疲惫或他人的节奏。'],
+   lowAdvice:'把目标拆小，优先建立“我能完成”的证据；练习明确说出需求和边界。',
+   highAdvice:'给效率增加边界，区分“推进”与“控制”，让休息和他人选择也成为系统的一部分。',
+   balAdvice:'行动力与边界感相对健康，可以继续保持目标感，同时给自己保留恢复空间。'},
+  {id:'heart',name:'心轮',en:'Heart',color:'#4caf6f',theme:'连接、信任、共情与接受',
+   low:['我不太容易真正信任别人，常会先保护自己。','面对亲密关系或重要关系，我容易保持距离。','被伤害之后，我很难重新打开自己。'],
+   high:['我容易为了维持关系而忽略自己的真实感受。','别人不开心时，我很容易自动承担过多责任。','我有时会把“理解别人”放在“保护自己”之前。'],
+   lowAdvice:'先从安全关系里的小幅度表达开始，不要求自己快速信任；连接感需要边界支持。',
+   highAdvice:'把共情和承担分开。理解一个人，不等于替对方负责。',
+   balAdvice:'关系中的开放与边界相对均衡，可以继续保持温度，同时尊重自己的真实感受。'},
+  {id:'throat',name:'喉轮',en:'Throat',color:'#3b82c4',theme:'表达、真实、沟通与被看见',
+   low:['有些话我明明想说，却常常到最后还是没说。','我会担心表达真实意见后引发冲突或被误解。','在重要场合，我有时很难准确说出自己真正想要什么。'],
+   high:['我一旦认定观点，就容易说得太快或太满。','争论时，我有时更急于表达，而不是先确认对方是否听懂。','我容易在情绪上来时用语言直接推进冲突。'],
+   lowAdvice:'练习具体表达：“我看到什么、我感受什么、我需要什么”。真实表达不等于强硬。',
+   highAdvice:'在表达前先确认目的：是想被理解、解决问题，还是只是释放情绪；必要时放慢速度。',
+   balAdvice:'表达与倾听相对平衡，可以继续保持清晰、真实和适度留白。'},
+  {id:'third',name:'眉心轮',en:'Third Eye',color:'#5b5fc7',theme:'洞察、模式识别、直觉与判断',
+   low:['面对复杂问题时，我容易被细节淹没，很难抓住主线。','我经常需要别人帮我确认自己的判断。','我有时不太相信自己的直觉，即使它后来常常是对的。'],
+   high:['我容易过度解读信息，把很多细节串成一个结论。','一旦形成某个判断，我有时会不断寻找支持它的证据。','我可能因为想得太多，而延迟现实行动。'],
+   lowAdvice:'练习从信息中提炼“最重要的三个变量”，并记录自己的初始判断与后续验证。',
+   highAdvice:'给直觉增加反证步骤：我还可能漏掉什么？哪些证据能推翻当前判断？',
+   balAdvice:'洞察与验证之间相对均衡，可以继续保持直觉，同时用现实反馈校准。'},
+  {id:'crown',name:'顶轮',en:'Crown',color:'#8b5cc7',theme:'意义感、价值观、整体感与精神方向',
+   low:['我有时会觉得每天只是完成任务，很难感到更大的意义。','长期目标对我来说有时比较模糊。','当生活进入重复节奏时，我容易觉得空或没有方向。'],
+   high:['我有时会过度关注“意义”“命运”或更高层解释，而忽略现实问题。','面对不确定性，我会倾向用宏大解释快速给事情下定义。','我有时更愿意思考人生方向，而不是处理眼前琐事。'],
+   lowAdvice:'不必先找到“终极意义”，先明确未来一年真正重要的三件事，让意义从行动里长出来。',
+   highAdvice:'把宏观理解拉回现实：这个想法今天能改变什么具体选择？避免用抽象解释替代现实处理。',
+   balAdvice:'意义感与现实感衔接较好，可以继续保持长期方向，同时不脱离当下行动。'}
+];
+
+function renderQuestions(){
+  const box=document.getElementById('questions');
+  let idx=1;
+  chakras.forEach(c=>{
+    const sec=document.createElement('section');
+    sec.className='section';
+    const items=[...c.low.map(t=>({t,dir:'low'})),...c.high.map(t=>({t,dir:'high'}))];
+    sec.innerHTML=`
+      <div class="section-head">
+        <div class="section-title"><span class="chakra-dot" style="background:${c.color}"></span>${c.name} <span class="small">${c.en}</span></div>
+        <span class="count" id="count-${c.id}">0/6</span>
+      </div>
+      <div class="section-body">
+        ${items.map((it,i)=>`
+          <div class="question" data-chakra="${c.id}" data-dir="${it.dir}">
+            <div class="qtitle">${idx+i}. ${it.t}</div>
+            <div class="scale">
+              ${[1,2,3,4,5].map(v=>`<label><input type="radio" name="${c.id}-${i}" value="${v}">${v}</label>`).join('')}
+            </div>
+            <div class="legend"><span>完全不符合</span><span>非常符合</span></div>
+          </div>`).join('')}
+      </div>`;
+    box.appendChild(sec);
+    idx+=6;
+  });
+}
+
+function answeredCount(){return [...document.querySelectorAll('.question')].filter(q=>q.querySelector('input:checked')).length}
+function updateProgress(){
+  const n=answeredCount(), pct=Math.round(n/42*100);
+  document.getElementById('progressText').textContent=`已完成 ${n} / 42`;
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('actionStatus').textContent=`已完成 ${n} / 42`;
+  chakras.forEach(c=>{
+    const qs=[...document.querySelectorAll(`.question[data-chakra="${c.id}"]`)];
+    const done=qs.filter(q=>q.querySelector('input:checked')).length;
+    document.getElementById('count-'+c.id).textContent=`${done}/6`;
+  });
+}
+function startTest(){document.querySelector('.section')?.scrollIntoView({behavior:'smooth',block:'start'})}
+
+const STATUS_EXPLAIN={
+  '相对平衡':'该主题目前没有明显偏弱或过度使用的信号，整体较协调。',
+  '偏弱':'该主题更容易表现为回避、压低、缺乏动力或不容易调动。',
+  '偏强':'该主题更容易被过度使用，可能出现控制、冲动、过度投入或边界失衡。',
+  '波动型':'偏弱与偏强信号同时较高，说明状态会随情境在两个方向之间摆动。'
+};
+
+function scoreChakra(c){
+  const lowQs=[...document.querySelectorAll(`.question[data-chakra="${c.id}"][data-dir="low"]`)];
+  const highQs=[...document.querySelectorAll(`.question[data-chakra="${c.id}"][data-dir="high"]`)];
+  const vals=qs=>qs.map(q=>Number(q.querySelector('input:checked')?.value||0));
+  const mean=arr=>arr.reduce((a,b)=>a+b,0)/arr.length;
+  const std=arr=>{const m=mean(arr);return Math.sqrt(arr.reduce((s,v)=>s+(v-m)*(v-m),0)/arr.length)};
+  const lowVals=vals(lowQs), highVals=vals(highQs);
+  const low=mean(lowVals), high=mean(highVals);
+  const gap=Math.abs(low-high);
+
+  let status='相对平衡', cls='balanced', advice=c.balAdvice;
+
+  // 先判断波动型：两端信号都高时，不再简单归为“偏弱”或“偏强”
+  if(low>=3.2 && high>=3.2 && gap<=0.75){
+    status='波动型';cls='high';
+    advice='偏弱与偏强信号同时较高，说明这一主题可能会随场景在两个方向之间摆动。先观察触发条件，再决定是补足、降速还是建立边界。';
+  }else if(low>=3.2 && low>high+.25){
+    status='偏弱';cls='low';advice=c.lowAdvice;
+  }else if(high>=3.2 && high>low+.25){
+    status='偏强';cls='high';advice=c.highAdvice;
+  }
+
+  // 平衡度：越远离偏弱/偏强两端，分数越高
+  const balance=Math.round(Math.max(0,Math.min(100,100-(Math.max(low,high)-1)*25)));
+
+  // 开放倾向：是问卷内部的象征性指标，不代表客观能量“开启比例”
+  // 偏弱信号压低，偏强信号抬高；健康开放的中间区间通常落在 55–80。
+  const openness=Math.round(Math.max(5,Math.min(100,70-(low-1)*17+(high-1)*10)));
+
+  // 活跃度：表示这个主题在近期生活中的“外显强度”
+  // 当偏强明显时升高；当偏弱明显时降低；波动型会保留一定活跃度
+  let activity=50+(high-low)*18;
+  if(status==='波动型') activity+=10;
+  activity=Math.round(Math.max(5,Math.min(100,activity)));
+
+  // 稳定度：六题内部一致性越高，且两端冲突越少，分数越高
+  const allVals=[...lowVals,...highVals];
+  const conflict=Math.max(0,Math.min(low,high)-1);
+  const stability=Math.round(Math.max(5,Math.min(100,100-std(allVals)*22-conflict*15)));
+
+  let openLabel='中';
+  if(openness>=72)openLabel='高';
+  else if(openness<42)openLabel='低';
+
+  return {
+    id:c.id,name:c.name,color:c.color,theme:c.theme,
+    low,high,gap,status,cls,advice,balance,openness,activity,stability,openLabel,
+    statusExplain:STATUS_EXPLAIN[status]
+  };
+}
+function generateResult(){
+  const n=answeredCount(), result=document.getElementById('result');
+  if(n<42){result.classList.add('show');result.innerHTML=`<h2>还差 ${42-n} 题</h2><div class="notice">建议完成全部 42 题后再生成结果，这样才能区分“偏弱”“偏强”和“波动”，也能让开放度、活跃度、稳定度更稳定。</div>`;result.scrollIntoView({behavior:'smooth'});return}
+  const scores=chakras.map(scoreChakra);
+  const balanced=scores.filter(x=>x.status==='相对平衡').length;
+  const avgOpen=Math.round(scores.reduce((s,x)=>s+x.openness,0)/scores.length);
+  const avgStable=Math.round(scores.reduce((s,x)=>s+x.stability,0)/scores.length);
+  const avgBalance=Math.round(scores.reduce((s,x)=>s+x.balance,0)/scores.length);
+
+  result.innerHTML=`
+    <h2>你的七脉轮状态总览</h2>
+    <div class="result-sub">当前 ${balanced}/7 个主题处于相对平衡区间。开放倾向、活跃度与稳定度是基于本问卷的象征性辅助指标，不代表客观生理能量。</div>
+
+    <div class="kpi-grid">
+      <div class="kpi"><b>${avgOpen}%</b><span>平均开放倾向</span></div>
+      <div class="kpi"><b>${avgBalance}%</b><span>平均平衡度</span></div>
+      <div class="kpi"><b>${avgStable}%</b><span>平均稳定度</span></div>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <h3>七轮开放倾向雷达图</h3>
+        <canvas id="radar" width="420" height="420"></canvas>
+        <div class="legend-row">
+          <span class="legend-key"><span class="legend-swatch" style="background:#7057d8"></span>开放度</span>
+          <span class="legend-key"><span class="legend-swatch" style="background:#4caf6f"></span>平衡度</span>
+          <span class="legend-key"><span class="legend-swatch" style="background:#3b82c4"></span>稳定度</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>逐轮状态</h3>
+        ${scores.map(s=>`<div class="chakra-row">
+          <div class="rowtop">
+            <span><b>${s.name}</b> · ${s.theme}</span>
+            <span><span class="status ${s.cls}">${s.status}</span><span class="open-tag">开放倾向 ${s.openLabel}</span></span>
+          </div>
+          <div class="metric-stack">
+            <div class="metric-line"><span>开放倾向</span><div class="metric-track"><div class="metric-fill" style="width:${s.openness}%;background:${s.color}"></div></div><b>${s.openness}%</b></div>
+            <div class="metric-line"><span>活跃度</span><div class="metric-track"><div class="metric-fill" style="width:${s.activity}%;background:${s.color};opacity:.72"></div></div><b>${s.activity}%</b></div>
+            <div class="metric-line"><span>稳定度</span><div class="metric-track"><div class="metric-fill" style="width:${s.stability}%;background:#3b82c4"></div></div><b>${s.stability}%</b></div>
+            <div class="metric-line"><span>平衡度</span><div class="metric-track"><div class="metric-fill" style="width:${s.balance}%;background:#4caf6f"></div></div><b>${s.balance}%</b></div>
+          </div>
+          <div class="small">${s.statusExplain}</div><div class="small">偏弱信号 ${s.low.toFixed(1)} / 5 ｜ 偏强信号 ${s.high.toFixed(1)} / 5 ｜ 差值 ${s.gap.toFixed(1)}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
+      <h3>逐轮调整建议</h3>
+      ${scores.map(s=>`<div class="advice"><b style="color:${s.color}">${s.name} · ${s.status} · 开放倾向${s.openLabel}</b><div class="small">${s.advice}</div></div>`).join('')}
+    </div>
+
+    <div class="notice">
+      这里把“开放倾向”和“平衡”分开看：开放倾向高，不代表状态一定更好；过度活跃也可能表现为边界不足、冲动、过度控制或过度解读。若偏弱与偏强信号同时较高，会优先标记为“波动型”。稳定度则反映近期表现是否相对一致。所有百分比都是本测试内部的相对指标，不是客观能量检测。
+    </div>
+    <div class="notice">本测试基于七脉轮常见象征主题做自我觉察映射，不是科学诊断工具，也不能用于判断疾病、心理障碍或替代专业医疗与心理支持。</div>`;
+  result.classList.add('show');
+  drawRadar(scores);
+  document.getElementById('raw').textContent=buildRaw(scores);
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+  saveState();
+}
+function drawRadar(scores){
+  const canvas=document.getElementById('radar'),ctx=canvas.getContext('2d'),cx=210,cy=210,R=145,n=7;
+  ctx.clearRect(0,0,420,420);
+  ctx.font='12px -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif';
+
+  for(let ring=1;ring<=5;ring++){
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      const a=-Math.PI/2+i*2*Math.PI/n,r=R*ring/5,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y)
+    }
+    ctx.closePath();ctx.strokeStyle='#e8e9ef';ctx.lineWidth=1;ctx.stroke();
+  }
+  for(let i=0;i<n;i++){
+    const a=-Math.PI/2+i*2*Math.PI/n,x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.strokeStyle='#eef0f4';ctx.stroke();
+  }
+
+  const polygon=(key,stroke,fill)=>{
+    ctx.beginPath();
+    scores.forEach((s,i)=>{
+      const a=-Math.PI/2+i*2*Math.PI/n,r=R*s[key]/100,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y)
+    });
+    ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();
+  };
+
+  polygon('openness','#7057d8','rgba(112,87,216,.10)');
+  polygon('balance','#4caf6f','rgba(76,175,111,.06)');
+  polygon('stability','#3b82c4','rgba(59,130,196,.05)');
+
+  scores.forEach((s,i)=>{
+    const a=-Math.PI/2+i*2*Math.PI/n;
+    const lx=cx+Math.cos(a)*(R+28),ly=cy+Math.sin(a)*(R+28);
+    ctx.fillStyle='#45495c';
+    ctx.textAlign=lx<cx-5?'right':lx>cx+5?'left':'center';
+    ctx.textBaseline=ly<cy?'bottom':'top';
+    ctx.fillText(s.name,lx,ly);
+  });
+}
+function buildRaw(scores){
+  const lines=['七脉轮自我觉察测试'];
+  document.querySelectorAll('.question').forEach((q,i)=>{const v=q.querySelector('input:checked')?.value||'-';lines.push(`${i+1}:${v}`)});
+  if(scores){lines.push('',...scores.map(s=>`${s.name}：${s.status}｜开放倾向${s.openness}%｜活跃${s.activity}%｜稳定${s.stability}%｜平衡${s.balance}%｜偏弱${s.low.toFixed(1)}｜偏强${s.high.toFixed(1)}`))}
+  return lines.join('\n');
+}
+async function copyResult(){
+  if(answeredCount()<42){generateResult();return}
+  const scores=chakras.map(scoreChakra),txt=buildRaw(scores);
+  try{await navigator.clipboard.writeText(txt);alert('结果已复制')}catch(e){document.getElementById('raw').style.display='block';document.getElementById('raw').textContent=txt}
+}
+function toggleRaw(){const r=document.getElementById('raw');r.textContent=buildRaw(answeredCount()===42?chakras.map(scoreChakra):null);r.style.display=r.style.display==='block'?'none':'block'}
+function clearAll(){
+  if(!confirm('确定清空全部答案吗？'))return;
+  document.querySelectorAll('input[type=radio]').forEach(x=>x.checked=false);
+  document.getElementById('result').classList.remove('show');document.getElementById('raw').style.display='none';
+  localStorage.removeItem('chakra_test_v1');updateProgress();
+}
+function saveState(){
+  const state={};
+  document.querySelectorAll('input[type=radio]:checked').forEach(x=>state[x.name]=x.value);
+  localStorage.setItem('chakra_test_v1',JSON.stringify(state));
+}
+function loadState(){
+  try{
+    const s=JSON.parse(localStorage.getItem('chakra_test_v1')||'{}');
+    Object.entries(s).forEach(([name,val])=>{const x=document.querySelector(`input[name="${name}"][value="${val}"]`);if(x)x.checked=true});
+  }catch(e){}
+}
+renderQuestions();loadState();updateProgress();
+document.addEventListener('change',()=>{saveState();updateProgress()});
+</script>
+</body>
+</html>
